@@ -8,12 +8,11 @@
 First table, i import all library that needed for all project and load file csv
 
 ---
-After that, i start to view data and start to clean data by remove duplicate and null data, change datatype column by using function:
-uplicated(),isna().sum(),df.dropna(inplace=True),astype(int)
+##### After that, i start to view data and start to clean data by remove duplicate and null data, change datatype column by using: function:duplicated(),isna().sum(),df.dropna(inplace=True),astype(int)
 ---
-I check data again by using some functions: info(), describe(), head()
+##### I check data again by using some functions: info(), describe(), head()
 ---
-Then, data is clean. I created a copy dataframe by *copy* function in order not to affect in raw dataframe: .copy(deep=True)
+##### Then, data is clean. I created a copy dataframe by *copy* function in order not to affect in raw dataframe: .copy(deep=True)
 ---
 #### I have 3 insights in question format need to answer by using visualization:
 1.When are most trips taken in terms of time of day, day of the week, or month of the year?
@@ -104,5 +103,3 @@ Visualize i create:
 ### Conlusion:
 - Customer is type of User have the most average trip duration on day 3.
 - Customer have higher average trip duration on all day than subscriber.
-
-
