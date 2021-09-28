@@ -5,48 +5,15 @@
 
 ## Describe details:
 ---
-First table, i import all library that needed for all project and load file csv below:
+First table, i import all library that needed for all project and load file csv
 
-
-``` python
-    # import all packages and set plots to be embedded inline
-    import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    import seaborn as sb
-    %matplotlib inline
-    
-    df = pd.read_csv(r'E:\Project_5\201902_fordgobike_tripdata.csv')
-```
 ---
 After that, i start to view data and start to clean data by remove duplicate and null data, change datatype column by using function:
-```python
-    #check duplicate record
-    df.duplicated().sum()
-
-    #check null values
-    df.isna().sum()
-    
-    #drop null values
-    df.dropna(inplace=True)
-
-    #convert member_birth_year from float to int
-    df.member_birth_year = df.member_birth_year.astype(int)
-```
+uplicated(),isna().sum(),df.dropna(inplace=True),astype(int)
 ---
-I check data again by using some functions: 
-```python
-    df.info()
-    df.describe()
-    df.head()
-```
+I check data again by using some functions: info(), describe(), head()
 ---
-Then, data is clean. I created a copy dataframe by *copy* function in order not to affect in raw dataframe:
-
-``` python
-    #create a df_copy to change data frame
-    df_copy = df.copy(deep=True)
-```
+Then, data is clean. I created a copy dataframe by *copy* function in order not to affect in raw dataframe: .copy(deep=True)
 ---
 #### I have 3 insights in question format need to answer by using visualization:
 1.When are most trips taken in terms of time of day, day of the week, or month of the year?
@@ -64,32 +31,8 @@ Univariate Exploration correspond to the first question:
 ---
 I start with exploration mentioned above because i want to know how the trips change through time.Firstly, I start with start_time ( Hour, Day and Month) by dividing into 3 columns: start_hour, start_day, start_month:
 
-``` python
-#Take the time from start time to see the detail and answer the first insight question
-#Take hour from start_time
-df_copy['start_hour'] = df_copy['start_time'].dt.hour
-#Take week_day from start_time
-df_copy['start_day'] = df_copy['start_time'].dt.day_name()
-#Take month from start_time
-df_copy['start_month'] = df_copy['start_time'].dt.to_period('M')
-
-```
----
 Then, i create visualization to see hour of day by using countplot:
 
-```python
-#count hour and order hour from max to min
-hour_counts = df_copy['start_hour'].value_counts()
-hour_order = hour_counts.index
-
-base_color = sb.color_palette()[0]
-plt.figure(figsize=(14,10))
-plt.title('Trips taken in terms of Hour of Day',fontsize=20)
-sb.countplot(data = df_copy, x='start_hour',color = base_color,order = hour_order)
-plt.ylabel('Count of trips', fontsize=14)
-plt.xlabel('Hours of Day (24h)',fontsize=14)
-
-```
 ---
 Visualize i create:
 
@@ -103,19 +46,6 @@ Visualize i create:
 ---
 After that, i create visualize to see weekdays by using countplot:
 
-```python
-#count Weekday and order weekday from max to min
-day_counts = df_copy['start_day'].value_counts()
-day_order = day_counts.index
-
-base_color = sb.color_palette()[0]
-plt.figure(figsize=(14,10))
-plt.title('Trips taken in terms of Weekdays',fontsize=20)
-sb.countplot(data = df_copy, x='start_day',color = base_color,order = day_order)
-plt.ylabel('Count of trips', fontsize=14)
-plt.xlabel('Weekday',fontsize=14)
-```
----
 Visualize i create:
 
 
@@ -135,15 +65,6 @@ Bivariate Exploration correspond to the second question:
 ---
 I create visualize to see the relationship between weekdays and duriation:
 
-``` python
-base_color = sb.color_palette()[0]
-plt.figure(figsize=(14,10))
-plt.title('Trips taken in terms of Weekdays and Duration(s)',fontsize=20)
-sb.barplot(data=df_copy, x= 'start_day', y='duration_sec',color = base_color);
-plt.ylabel('Duration by secs', fontsize=14)
-plt.xlabel('Weekdays',fontsize=14)
-```
----
 Visualize i create:
 
 
@@ -162,14 +83,7 @@ Multivariate Exploration correspond to the third question:
 
 ---
 First, I create visualize to see the relationship between weekdays and duriation by Type of User:
-```python
-plt.figure(figsize=(14,10))
-sb.barplot(x= df_copy.start_day, y= df_copy.duration_sec, hue=df_copy.user_type)
-plt.ylabel('Duration by secs', fontsize=14)
-plt.xlabel('Weekdays',fontsize=14)
-plt.title('Trips taken in terms of Weekdays and Duration(s) by Type of User',fontsize=20)
-plt.legend(title='Type of User')
-```
+
 ---
 Visualize i create:
 
@@ -183,16 +97,6 @@ Visualize i create:
 ---
 Second, I create visualize to see the relationship between hour of day and duriation by Type of User:
 
-```python
-ase_color = sb.color_palette()[0]
-plt.figure(figsize=(14,10))
-plt.title('Trips taken in terms of Hour of Day and Duration(s) by Type of User',fontsize=20)
-sb.barplot(x= df_copy.start_hour, y= df_copy.duration_sec, hue=df_copy.user_typeConclusion)
-plt.ylabel('Duration by sec', fontsize=14)
-plt.xlabel('Hours of Day (24h)',fontsize=14)
-plt.legend(title='Type of User')
-```
----
 Visualize i create:
 
 ![image](https://user-images.githubusercontent.com/68053596/135077842-8f98079f-f97e-4435-8bc6-9356e906ac01.png)
